@@ -405,8 +405,10 @@ Samar@hotmail.com
 
 Température (°C)
 ![Température](img/img2.PNG)
+
 Humidité (%)
 ![Température](img/img3.PNG)
+
 Pression (hPa)
 ![Température](img/img4.PNG)
 
