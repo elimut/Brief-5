@@ -274,8 +274,7 @@ temps d’utilisation des machines et/ou des salles, le type de machine et/ou ac
 - les administrateurs:
     - Afin d’assurer la maintenance de notre système nous aurons     également besoin de différents types d’accès.
     - Les utilisateurs, membres, auront accès à leur statistique via notre
-    application et notre site web, l’idéal serait de créer des vues pour
-    faciliter leur extraction.
+    application et notre site web, l’idéal serait de créer des vues pour faciliter leur extraction.
     - Les gestionnaires eux ont la possibilité de rajouter et de modifier les membres d’EURO FIT AND SWEAT.
     - Les coachs peuvent avoir accès aux données de leur client afin de surveiller leur motivation et d’accepter des pots de vin.
     - Finalement les administrateurs seront là pour se tourner les pouces et décider de quoi faire lorsque des données     supplémentaires sont ajoutées.
