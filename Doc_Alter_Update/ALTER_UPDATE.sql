@@ -18,3 +18,12 @@ join donnees_medicales
 on membres.fk_id_donnee_medicale = donnees_medicales.id_donnee_medicale
 join medecins
 on donnees_medicales.id_medecin = medecins.id_medecin;
+
+-- Suite erreur saisie pays, je rectifie
+UPDATE PAYS SET PAYS = 'Pays Bas' WHERE pays = 'Amsterdam';
+
+UPDATE villes set id_pays = (SELECT id_pays from pays where pays = 'France') where ville = 'Saint-Mars-la-Réorthe';
+UPDATE villes set id_pays = (SELECT id_pays from pays where pays = 'France') where ville = 'les epesses';
+UPDATE villes set id_pays = (SELECT id_pays from pays where pays = 'Pays Bas') where ville = 'Amsterdam';
+
+

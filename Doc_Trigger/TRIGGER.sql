@@ -1,3 +1,4 @@
+-- Création d' un trigger pour historiser les données membre dès leurs suppressions
 create table if not exists corbeille_membre(
 id_membre int not null auto_increment,
 type varchar(30),
