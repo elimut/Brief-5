@@ -1,0 +1,216 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1036{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang12 Create DB\par
+\par
+CREATE SCHEMA euro_fit_Anne_Sophie;\par
+\par
+USE euro_fit_Anne_Sophie;\par
+\par
+create table if not exists pays(\par
+id_pays int not null auto_increment,\par
+pays varchar(50),\par
+primary key(id_pays)\par
+);\par
+\par
+create table if not exists codes_postaux(\par
+id_code_postal int not null auto_increment,\par
+code_postal varchar(15),\par
+primary key(id_code_postal)\par
+);\par
+\par
+create table if not exists villes(\par
+id_ville int not null auto_increment,\par
+ville varchar(30),\par
+primary key(id_ville),\par
+id_code_postal int,\par
+id_pays int,\par
+CONSTRAINT fk_id_code_postal FOREIGN KEY (id_code_postal) REFERENCES codes_postaux (id_code_postal) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT fk_id_pays FOREIGN KEY (id_pays) REFERENCES pays (id_pays) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists medecins(\par
+id_medecin int not null auto_increment,\par
+nom varchar(30),\par
+prenom varchar(30),\par
+primary key(id_medecin)\par
+);\par
+\par
+create table if not exists donnees_medicales(\par
+id_donnee_medicale int not null auto_increment,\par
+date_certificat_medical date,\par
+primary key(id_donnee_medicale),\par
+id_medecin int,\par
+CONSTRAINT fk_id_medecin FOREIGN KEY (id_medecin) REFERENCES medecins (id_medecin) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists parrainages(\par
+id_parrainage int not null auto_increment,\par
+parrain varchar(50),\par
+filleule varchar(50),\par
+primary key(id_parrainage)\par
+);\par
+\par
+create table if not exists adresses(\par
+id_adresse int not null auto_increment,\par
+adresse varchar(255),\par
+primary key(id_adresse),\par
+id_code_postal int,\par
+CONSTRAINT id_code_postal FOREIGN KEY (id_code_postal) REFERENCES codes_postaux (id_code_postal) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists etablissements_bancaires(\par
+id_etablissement int not null auto_increment,\par
+nom varchar(50),\par
+primary key(id_etablissement)\par
+);\par
+\par
+create table if not exists finances(\par
+id_finance int not null auto_increment,\par
+rib varchar(50),\par
+cotisation_a_jour boolean,\par
+primary key(id_finance),\par
+id_etablissement int,\par
+CONSTRAINT id_etablissement FOREIGN KEY (id_etablissement) REFERENCES etablissements_bancaires(id_etablissement) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists assurances(\par
+id_assurance int not null auto_increment,\par
+numero_de_contrat varchar(50),\par
+primary key(id_assurance)\par
+);\par
+\par
+create table if not exists machines(\par
+id_machines int not null auto_increment,\par
+date_badge_debut date,\par
+date_badge_fin date,\par
+type varchar(30),\par
+primary key(id_machines)\par
+);\par
+\par
+create table if not exists salles(\par
+id_salle int not null auto_increment,\par
+type varchar(30),\par
+primary key(id_salle),\par
+id_machines int,\par
+CONSTRAINT id_machines FOREIGN KEY (id_machines) REFERENCES machines(id_machines) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+\par
+create table if not exists produits(\par
+id_produits int not null auto_increment,\par
+prix float,\par
+primary key(id_produits)\par
+);\par
+\par
+create table if not exists achats(\par
+id_achat int not null auto_increment,\par
+facture varchar(50),\par
+livraison boolean,\par
+primary key(id_achat),\par
+ id_produits int,\par
+CONSTRAINT id_produits FOREIGN KEY (id_produits) REFERENCES produits(id_produits) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists donnees_sante(\par
+id_donnee_sante int not null auto_increment,\par
+type varchar(50),\par
+primary key(id_donnee_sante),\par
+ id_machine int,\par
+CONSTRAINT id_machine FOREIGN KEY (id_machine) REFERENCES machines(id_machines) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists fournisseurs(\par
+id_fournisseur int not null auto_increment,\par
+facture varchar(50),\par
+prix float,\par
+primary key(id_fournisseur),\par
+ id_produit int,\par
+ id_adresse int,\par
+ CONSTRAINT id_produit FOREIGN KEY (id_produit) REFERENCES produits(id_produits) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT id_adresse FOREIGN KEY (id_adresse) REFERENCES adresses(id_adresse) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists magasins(\par
+id_magasin int not null auto_increment,\par
+numero_de_telephone varchar(15),\par
+livraison boolean,\par
+primary key(id_magasin),\par
+ id_achat int,\par
+ id_adresse int,\par
+ CONSTRAINT id_achat FOREIGN KEY (id_achat) REFERENCES achats(id_achat) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT fk_id_adresse FOREIGN KEY (id_adresse) REFERENCES adresses(id_adresse) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists connexions(\par
+id_connexion int not null auto_increment,\par
+login varchar(50),\par
+mot_de_passe varchar(255),\par
+question_secrete varchar(50),\par
+primary key(id_connexion)\par
+);\par
+\par
+create table if not exists clubs(\par
+id_club int not null auto_increment,\par
+nom varchar(50),\par
+numero_de_telephone varchar(15),\par
+primary key(id_club),\par
+ id_assurance int,\par
+ id_salle int,\par
+ id_donnee_sante int,\par
+ id_connexion int,\par
+ CONSTRAINT id_assurance FOREIGN KEY (id_assurance) REFERENCES assurances(id_assurance) ON DELETE SET NULL ON UPDATE CASCADE,\par
+  CONSTRAINT id_salle FOREIGN KEY (id_salle) REFERENCES salles(id_salle) ON DELETE SET NULL ON UPDATE CASCADE,\par
+ CONSTRAINT id_donnee_sante FOREIGN KEY (id_donnee_sante) REFERENCES donnees_sante(id_donnee_sante) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT id_connexion FOREIGN KEY (id_connexion) REFERENCES connexions(id_connexion) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists administrateurs(\par
+id_administrateur int not null auto_increment,\par
+nom varchar(50),\par
+prenom varchar(50),\par
+statut varchar(50),\par
+primary key(id_administrateur),\par
+ fk_id_connexion int,\par
+CONSTRAINT fk_id_connexion FOREIGN KEY (fk_id_connexion) REFERENCES connexions(id_connexion) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists abonnements(\par
+id_abonnement int not null auto_increment,\par
+type varchar(30),\par
+tarif float,\par
+bilan_corporel_offert boolean,\par
+duree int,\par
+primary key(id_abonnement),\par
+fk_id_connexions int,\par
+fk_id_parrainage int,\par
+fk_id_club int,\par
+fk_id_finance int,\par
+CONSTRAINT fk_id_connexions FOREIGN KEY (fk_id_connexions) REFERENCES connexions(id_connexion) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT fk_id_parrainage FOREIGN KEY (fk_id_parrainage) REFERENCES parrainages(id_parrainage) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT fk_id_finance FOREIGN KEY (fk_id_finance) REFERENCES finances(id_finance) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT fk_id_club FOREIGN KEY (fk_id_club) REFERENCES clubs(id_club) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+create table if not exists membres(\par
+id_membre int not null auto_increment,\par
+type varchar(30),\par
+nom varchar(50),\par
+prenom varchar(50),\par
+mail varchar(255),\par
+genre boolean,\par
+date_de_naissance date,\par
+bilan_corporel_effectue boolean,\par
+numero_de_telephone varchar(15),\par
+primary key(id_membre),\par
+fk_id_connection int,\par
+fk_id_adresses int,\par
+fk_id_abonnement int,\par
+fk_id_donnee_medicale int,\par
+CONSTRAINT fk_id_connection FOREIGN KEY (fk_id_connection) REFERENCES connexions(id_connexion) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT fk_id_adresses FOREIGN KEY (fk_id_adresses) REFERENCES adresses(id_adresse) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT fk_id_abonnement FOREIGN KEY (fk_id_abonnement) REFERENCES abonnements(id_abonnement) ON DELETE SET NULL ON UPDATE CASCADE,\par
+CONSTRAINT fk_id_donnee_medicale FOREIGN KEY (fk_id_donnee_medicale) REFERENCES donnees_medicales(id_donnee_medicale) ON DELETE SET NULL ON UPDATE CASCADE\par
+);\par
+\par
+}
+ 
