@@ -193,35 +193,34 @@ Voir dossier diagrammes MPD.
 
 ### Création de la base de données:
 
-![Create_DB](Doc_create_db/VScode_Create.png)
+![Create_DB](VSCode_code_sql_img/VScode_Create.png)
 
 
 ### Insertion des données:
 
 L’ insertion des données, a été plus complexe, car je ne pouvais me faire à l’ idée de devoir rentrer manuellement les clefs étrangères. J’ ai passé beaucoup de temps à essayer de créer un trigger pour automatiser l’ injection de tables jointes… en vain. 
 
-![Insert](Doc_Insert/VScode_Insert.png)
-
+![Insert](VSCode_code_sql_img/VScode_Insert.png)
 ### Requêter:
 
-![Requête](Doc_Requete/VScode_Requete.png)
+![Requête](VSCode_code_sql_img/VScode_Requete.png)
 
 ### Suppression, mise à jour des données:
 
-![Alter](Doc_Alter_Update/VScode_Alter_Update.png)
+![Alter](VSCode_code_sql_img/VScode_Alter_Update.png)
 
 ### Trigger:
 
-J’ ai eu plein d’ idées concernant les trigger, notamment par rapport aux dates d'anniversaire des abonnements, renouvellement certificat médical, effacement des données si le membre n’ est plus à jour de ses cotisations… Faute de temps, et de technique, j’ ai fait un trigger qui va permettre d'insérer les données d’une table cible lors de leur suppression, ainsi celles-ci sont historisées.
+J’ ai eu plein d’ idées concernant les trigger, notamment par rapport aux dates d'anniversaire des abonnements, renouvellement des certificats médicaux, effacement des données si le membre n’ est plus à jour de ses cotisations… 
+Faute de temps, et de technique, j’ choisi de faire un trigger qui va permettre d'insérer les données d’une table cible lors de leur suppression, ainsi celles-ci sont historisées.
 
-![Trigger_Delete](Doc_Trigger/VScode_Trigger.png)
-
+![Trigger_Delete](VSCode_code_sql_img/VScode_Trigger.png)
 ### Les vues:
 
-A l’ instar des trigger, plusieurs idées de vues me sont venues. Il a fallu bien évidemment appréhender ce que cela est, n' ayant jamais pratiqué les views.
+A l’ instar des trigger, plusieurs idées de vues me sont venues. Il a fallu bien évidemment appréhender ce que cela est,en effet je n'ai jamais pratiqué les views.
 Cela est intéressant, par exemple pour n’ afficher que quelques données lorsqu’ un membre à un statut qui ne lui permet pas de tout visualiser, ou pour gagner du temps suite à des requêtes courantes.
 
-![View](Doc_view/VScode_View.png)
+![View](VSCode_code_sql_img/VScode_View.png)
 
 
 
