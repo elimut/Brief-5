@@ -223,5 +223,24 @@ Cela est intéressant, par exemple pour n’ afficher que quelques données lors
 ![View](VSCode_code_sql_img/VScode_View.png)
 
 
+## Suggestions
+
+Table user:
+- id,
+- name,
+- email,
+- password,
+- rôle en FK avec table roles,
+- info.
+
+Table roles:
+- id,
+- name,
+- admin,
+- rôle.
+
+
+
+
 
 
